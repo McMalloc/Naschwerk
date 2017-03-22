@@ -1,0 +1,17 @@
+nav.navbar.sticky-top.navbar-toggleable-sm.navbar-light.bg-faded
+  button.navbar-toggler.navbar-toggler-right aria-controls="navigation" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navigation" data-toggle="collapse" type="button"
+    span.navbar-toggler-icon
+  a.navbar-brand href="/"  Naschwerk
+  - unless @user.nil?
+    #navigation.collapse.navbar-collapse
+      ul.navbar-nav.mr-auto
+        li.nav-item class=('active' if @action == '/')
+          a.nav-link href="/"
+            | Posts
+            span.sr-only (current)
+        li.nav-item class=('active' if @action == '/dev')
+          a.nav-link href="/dev"  Entwicklung&thinsp;/&thinsp;Feedback
+      span.nav-item.navbar-text Angemeldet als&nbsp;
+      a.nav-item.navbar-text href="users/#{@user.id}" = @user.name
+      a.nav-item.navbar-text href="/signout" style="margin-right: 16px;" &nbsp;(abmelden)
+      button.btn.btn-outline-primary data-toggle="modal" type="submit" data-target="#posting-modal" Posten

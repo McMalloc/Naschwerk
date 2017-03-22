@@ -1,0 +1,39 @@
+.row.justify-content-center
+  .col-md-6.col-xs-12.col-md-offset-3
+    h4 Registrierung
+    form method="POST" action="users"
+      .row
+        fieldset.col.form-group
+          label for="name"
+            | Name
+          input#name.form-control type="text" required="" name="name"
+
+        fieldset.col.form-group
+          label for="pwd"
+            | Password
+          input#pwd.form-control type="password" required="" name="pwd"
+
+      fieldset.form-group
+        label for="email"
+          | E-Mail
+        input#email.form-control type="email" name="email"
+        p.text-muted
+          | E-Mail ist freiwillig und wird für Benachrichtigungen verwendet.
+
+      fieldset.form-group
+        label for="phone"
+          | Telefonnummer
+        input#phone.form-control type="text" name="phone"
+        p.text-muted
+          | Telefonnummer, die für deinen
+          strong Telegram
+          | -Account genutzt wird. Angabe ist wie E-Mail freiwillig und dient den Benachrichtigungen.
+
+      fieldset.form-group
+        label for="human"
+          | Wo hat die Hochschule neben Stendal noch einen Standort?
+        input#human.form-control type="text" required="" name="human"
+        p.text-muted
+
+      div.text-right
+        input.btn.btn-primary type="submit" value="Registrieren"

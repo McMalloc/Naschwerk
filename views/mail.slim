@@ -1,0 +1,10 @@
+h1
+  = @self.og_title
+a href="#{@self.url}"
+p
+  = @self.og_description
+
+p
+  | Gepostet von #{@self.user_id}
+p
+  = self.title

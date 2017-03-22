@@ -1,0 +1,19 @@
+div.row.justify-content-center
+  div.col-md-6.col-xs-12.col-md-offset-3
+    h4 Einloggen
+    form method="POST" action="auth"
+      fieldset.form-group
+        label
+          | Name
+        input.form-control type="text" required="" name="name"
+      fieldset.form-group
+        label
+          | Password
+        input.form-control type="password" required="" name="pwd"
+      div.text-right
+        input.btn.btn-primary type="submit" value="Anmelden"
+    hr
+    p
+      | Kein Konto?&nbsp;
+      a href="signup"
+        | Registrieren.

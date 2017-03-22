@@ -1,0 +1,17 @@
+div.row.justify-content-center
+  div.col-md-6.col-xs-12.col-md-offset-3
+    h4 Nutzerinfo
+
+    form method="POST" action="/users/#{@user.id}"
+      fieldset.form-group
+        label
+          | Name
+        input.form-control type="text" required="" name="name" value="#{@user.name}"
+      fieldset.form-group
+        label
+          | E-Mail
+        input.form-control type="email" required="" name="pwd" value="#{@user.email}"
+        p.text-muted
+          | Entferne deine E-Mail-Adresse, wenn du keine Benachrichtigungen mehr erhalten willst.
+      div.text-right
+        input.btn.btn-primary type="submit" value="Änderungen abschicken"

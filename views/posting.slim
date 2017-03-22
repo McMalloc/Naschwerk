@@ -1,0 +1,20 @@
+#posting-modal.modal.fade aria-hidden="true" aria-labelledby="exampleModalLabel" role="dialog" tabindex="-1"
+  form method="POST" action="posts"
+    .modal-dialog role="document"
+      .modal-content
+        .modal-header
+          h5.modal-title Link posten
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+        .modal-body
+          fieldset.form-group
+            label
+              | Titel
+            input.form-control type="text" required="" name="title"
+          fieldset.form-group
+            label
+              | URL
+            input.form-control type="url" name="url"
+        .modal-footer
+          button#cancel-post-btn.btn.btn-secondary data-dismiss="modal" type="button" Abbrechen
+          button#save-post-btn.btn.btn-primary type="submit" Posten
