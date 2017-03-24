@@ -11,7 +11,7 @@ class Post < Sequel::Model
 
 end
 
-doc = File.open('D:\xamp\htdocs\naschwerk\googlespaces\expand.html') { |f| Nokogiri::HTML(f) }
+doc = File.open(File.expand_path('googlespaces/expand.html')) { |f| Nokogiri::HTML(f) }
 old_posts = doc.xpath '//*/div[starts-with(@class, \'TZN3ff\')]'
 old_posts.each do |node|
   oldpost = Post.new do |p|

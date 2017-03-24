@@ -1,19 +1,26 @@
 .row.justify-content-center
   .col-xs-12.col-sm-10.col-md-8.col-lg-6
-    h4 dev
+    h4 Entwicklung
+    p
+      a href="https://github.com/McMalloc/Naschwerk"
+        | Sources auf GitHub
     div
+      h5 Todos
       ul
-        li
-          del User können Links posten
-        li Ajax (keine Page reloads)
-        li
-          strong  Submit-Formular disablen wenn abgeschickt, um mehrmaliges Abschicken zu verhindern
-              (oder Ladezeit verringern)
+        li Ajax (keine Page reloads, endlos scrollen)
+        li Passwort zurücksetzen bzw. ändern
+        li Thumbnails lokal beziehen
+        li Favourisieren (Dient als Lesezeichen und wenn erwünscht als zweiter Sortiermodus (Posts mit den meisten Favourisierungen))
     hr
     div
-      p Wünsche oder Kritik?
+      h5 Wünsche oder Kritik
+      .alert.alert-info role="alert"
+        strong Sorry,
+        span &nbsp;E-Mails gehen noch nicht.
+      p.text-info
     div
       form
         fieldset.form-group
-          textarea.form-control style="height: 250px;"
-        button.btn.btn-primary type="submit" Abschicken
+          textarea.disabled.form-control style="height: 200px;"
+        .text-right
+          button.disabled.btn.btn-primary type="submit" Abschicken

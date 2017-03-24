@@ -1,7 +1,7 @@
 # require 'fastimage_resize'
 require 'pony'
 
-puts Pony.mail to: 'Robert.Wlcek@student.iwid.hs-magdeburg.de',
+Pony.mail to: 'kontakt@infantking.de',
           from: "Naschwerk",
           subject: "subject",
           body: "content",

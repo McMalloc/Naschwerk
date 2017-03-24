@@ -18,20 +18,22 @@ class Naschwerk < Sinatra::Base
   end
 
   post '/users' do
+    if !['sdl', 'stendal'].include? params['human'].downcase.gsub ' ', ''
+      redirect 'signup'
+    end
     salt = ('a'..'z').to_a.shuffle[0,8].join
     pwdhash = Digest::SHA256.hexdigest(params['pwd']+salt)
 
     @new_user = User.create(
         name: params['name'],
         email: params['email'],
+        phone: params['phone'],
         pwdhash: pwdhash,
         salt: salt,
         created_at: Time.now.strftime('%Y-%m-%d %H:%M:%S')
     )
     @new_user.save
     session[:id] = @new_user.id
-
-    @new_user.to_json
 
     # AJAX style
     # payload = JSON.parse request.body.read

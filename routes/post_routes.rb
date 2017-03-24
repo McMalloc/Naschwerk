@@ -11,6 +11,9 @@ class Naschwerk < Sinatra::Base
 
   post '/posts' do
     @user = User[session[:id]]
+    if @user.nil?
+      redirect '/'
+    end
     if request.accept? 'text/html'
 
       @new_post = Post.new do |p|
@@ -22,6 +25,7 @@ class Naschwerk < Sinatra::Base
 
       @new_post.gather_tags
       @new_post.save
+
       # @new_post.load_image
       redirect to('/')
     end
@@ -34,6 +38,8 @@ class Naschwerk < Sinatra::Base
                          user_id: @user.id,
                          created_at: Time.now.strftime('%Y-%m-%d %H:%M:%S')
       )
+      @new_post.gather_tags
+      @new_post.save
       @new_post.to_json
     end
   end

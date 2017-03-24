@@ -8,6 +8,10 @@ img.post-image {
   width: 100%;
 }
 
+p {
+  white-space: pre-wrap;
+}
+
 p a {
   word-break: break-word;
 }

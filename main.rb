@@ -22,18 +22,26 @@ class Naschwerk < Sinatra::Base
 
   before do
     @user = User[session[:id]]
-    @host = request.host
+    @host = request.host + ':9292'
     @action = request.path_info
   end
 
   get '/', :auth => :user do
     # @posts = Post.all
-    @posts = Post.order(Sequel.desc(:created_at)).left_join(:users, :id=>:user_id)
+    @posts = Post
+               .order(Sequel.desc(:created_at))
+               .select_append(:posts__created_at___date)
+               .left_join(:users, :id=>:user_id)
     slim :index
   end
 
   get '/dev', :auth => :user do
     slim :dev
+  end
+
+  get '/signout' do
+    session[:id] = nil
+    redirect '/'
   end
 
   get '/posting', :auth => :user do

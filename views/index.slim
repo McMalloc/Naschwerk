@@ -5,17 +5,20 @@
         div
           h4 = post.title
 
-          - unless post.og_image.nil?
-            img.post-image src="#{post.og_image}" alt="Card image cap"
-          p
+          - if post.og_image.nil?
+            a target="_blank" href="#{post.url}" &rarr; #{post.url}
+          - else
+            a target="_blank" href="#{post.url}"
+              img.post-image src="#{post.og_image}" alt="Card image cap"
+          p.lead
             = post.og_title
           p
             = post.og_description
             br
-            a target="_blank" href="#{post.url}"
-              = post.url
-          p.text-muted
-            = post.created_at.strftime('%d. %b %Y')
+            - unless post.og_image.nil?
+              a target="_blank" href="#{post.url}" &rarr; #{post.url}
+          p.text-muted.text-right
+            = post[:date].strftime('%d. %b %Y')
             | &nbsp;von&nbsp;
             = post[:name]
         /a data-toggle="collapse" href="#comments-#{post.id}" aria-expanded="false" aria-controls="comments-#{post.id}"
