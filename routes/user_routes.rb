@@ -17,6 +17,16 @@ class Naschwerk < Sinatra::Base
     end
   end
 
+  post '/users/:id' do
+    if @user.nil?
+      redirect '/'
+    end
+    @user.name = params['name']
+    @user.email = params['email']
+    @user.save
+    redirect '/users/' + @user.id.to_s
+  end
+
   post '/users' do
     if !['sdl', 'stendal'].include? params['human'].downcase.gsub ' ', ''
       redirect 'signup'

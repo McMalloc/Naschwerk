@@ -8,3 +8,4 @@ vendor/gems/*
 node_modules
 db/*.db
 .*.sw*
+config.yml

@@ -7,3 +7,4 @@ Sequel::Model.plugin :json_serializer
 
 require_relative 'user'
 require_relative 'post'
+require_relative 'comment'

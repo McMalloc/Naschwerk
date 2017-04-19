@@ -14,13 +14,10 @@
     hr
     div
       h5 Wünsche oder Kritik
-      .alert.alert-info role="alert"
-        strong Sorry,
-        span &nbsp;E-Mails gehen noch nicht.
-      p.text-info
-    div
-      form
+    p
+      form#feedback-form method="POST" action="/feedback"
+        input hidden="true" name="user" value="#{@user.name}"
         fieldset.form-group
-          textarea.disabled.form-control style="height: 200px;"
+          textarea.form-control name="content" style="height: 200px;"
         .text-right
-          button.disabled.btn.btn-primary type="submit" Abschicken
+          button#send-feedback-btn.btn.btn-primary type="submit" Abschicken

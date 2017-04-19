@@ -15,3 +15,7 @@ p {
 p a {
   word-break: break-word;
 }
+
+.comment-details {
+  font-size: 80%;
+}

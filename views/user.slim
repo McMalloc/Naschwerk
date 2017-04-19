@@ -7,11 +7,17 @@ div.row.justify-content-center
         label
           | Name
         input.form-control type="text" required="" name="name" value="#{@user.name}"
-      fieldset.form-group
-        label
-          | E-Mail
-        input.form-control type="email" required="" name="pwd" value="#{@user.email}"
-        p.text-muted
-          | Entferne deine E-Mail-Adresse, wenn du keine Benachrichtigungen mehr erhalten willst.
+      div.alert.alert-info
+        | Kontaktiere den Telegram-Bot&ensp;
+        a.font-italic href="https://web.telegram.org/#/im?p=@naschbot" naschbot
+        | , um darüber neue Linkeinsendungen zu erhalten.
+        br
+        | Blockierst du den Bot als Kontakt, erhälst du keine weiteren Updates.
+      /fieldset.form-group
+      /  label
+      /    | E-Mail
+      /  input.form-control type="email" required="" name="email" value="#{@user.email}"
+      /  p.text-muted
+      /    | Entferne deine E-Mail-Adresse, wenn du keine Benachrichtigungen mehr erhalten willst.
       div.text-right
         input.btn.btn-primary type="submit" value="Änderungen abschicken"

@@ -1,0 +1,7 @@
+- @comments.each do |comment|
+  div.p-2
+    div = comment.content
+    div.text-muted.comment-details
+      span = comment.created_at.strftime('%d. %b %Y')
+      span &ensp;von&ensp;
+      span = comment[:name]

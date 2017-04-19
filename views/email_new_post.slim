@@ -1,0 +1,12 @@
+|From Naschwerk\n
+|To Naschwerkabonnent\n
+|Subject #{@subject}\n
+|\n
+|Hi,\n
+
+- if @title.nil?
+  a href="#{@link}" =@link
+- else
+  a href="#{@link}" =@title
+
+|Gruß

@@ -1,27 +1,74 @@
 # require 'fastimage_resize'
-require 'pony'
+require 'net/smtp'
+require 'net/http'
+require 'open-uri'
 
 class Naschwerk < Sinatra::Base
   helpers do
 
-    def broadcast_mail content, subject
+    def broadcast_telegram link, subject
+      @token = settings.TELEGRAM_API_KEY
+      @message = "
+      #{subject} \n\r\n\r
+      #{link}\n
+      "
+
+      @data = JSON.parse URI.parse("https://api.telegram.org/bot#{@token}/getUpdates").read
+      @chats = @data['result'].map { |h| h['message']['chat']['id'] }.uniq
+
+      @chats.each do |chat_id|
+        @uri = URI("https://api.telegram.org/bot#{@token}/sendMessage?chat_id=#{chat_id}&text=#{@message}")
+        Net::HTTP.get(@uri)
+      end
+    end
+
+    def feedback_mail (content, user)
+      message = "
+From: #{user} <naschwerk feedback form>
+To: Webmaster <naschwerk@sushi-schranke.de>
+Subject: Naschwerk Feedback\n
+#{content}"
+
+      Net::SMTP.start('suhail.uberspace.de',
+                      587,
+                      'naschwerk.sushi-schranke.de',
+                      'naschwerk@svickova.suhail.uberspace.de', 'naschwerk00', :login) do |smtp|
+        smtp.enable_starttls_auto
+        smtp.send_message message,  'naschwerk@svickova.suhail.uberspace.de',
+                                    ['naschwerk@sushi-schranke.de']
+      end
+    end
+
+    def broadcast_mail (link, subject, title)
+      # @link = link
+      # @subject = subject
+      # @title = title
+      # message = slim :email_new_post, layout: false
+      message = "
+From Naschwerk
+To Naschwerkabonnent
+Subject #{subject}
+
+Hi,
+
+#{title}
+#{link}
+
+Gruß"
+      addrs = []
       User.each do |user|
         unless user.email.nil? || (user.email.length == 0)
-          Pony.mail to: user.email,
-                    from: "Naschwerk",
-                    subject: subject,
-                    body: content,
-                    via: :smtp,
-                    via_options: {
-                      address:              'suhail.uberspace.de',
-                      port:                 '587',
-                      # enable_starttls_auto: true,
-                      user_name:            'naschwerk@svickova.suhail.uberspace.de',
-                      password:             '',
-                      authentication:       :login, # :plain, :login, :cram_md5, no auth by default
-                      domain:               'suhail.uberspace.de'
-                  }
+          addrs.push user.email
         end
+      end
+      puts addrs
+      Net::SMTP.start('suhail.uberspace.de',
+                      587,
+                      'naschwerk.sushi-schranke.de',
+                      'naschwerk@svickova.suhail.uberspace.de', 'naschwerk00', :login) do |smtp|
+        smtp.enable_starttls_auto
+        smtp.send_message message,  'naschwerk@svickova.suhail.uberspace.de',
+                          addrs
       end
     end
 

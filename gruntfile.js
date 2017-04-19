@@ -27,7 +27,7 @@ module.exports = function (grunt) {
       bundle: {
         files: {
           'public/libs/bundle.js': [
-            'node_modules/jquery/dist/jquery.slim.js',
+            'node_modules/jquery/dist/jquery.js',
             'node_modules/bootstrap/dist/js/bootstrap.js']
         }
       }

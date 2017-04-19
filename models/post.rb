@@ -7,8 +7,7 @@ class Post < Sequel::Model
   end
 
   def after_save
-    # @self = self
-    # app.broadcast_mail self.url, "Neuer Post im Naschwerk: #{self.og_title}"
+    app.broadcast_telegram self.url, "#{User[self.user_id].name} postete im Naschwerk: #{self.title}"
   end
 
   def before_save
