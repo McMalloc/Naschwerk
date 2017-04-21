@@ -6,18 +6,25 @@ require 'open-uri'
 class Naschwerk < Sinatra::Base
   helpers do
 
+    def normalize_uri(uri)
+      return uri if uri.is_a? URI
+
+      uri = uri.to_s
+      uri, *tail = uri.rpartition "#" if uri["#"]
+
+      URI(URI.encode(uri) << Array(tail).join)
+    end
+
     def broadcast_telegram link, subject
-      @token = settings.TELEGRAM_API_KEY
+
       @message = "
       #{subject} \n\r\n\r
       #{link}\n
       "
 
-      @data = JSON.parse URI.parse("https://api.telegram.org/bot#{@token}/getUpdates").read
-      @chats = @data['result'].map { |h| h['message']['chat']['id'] }.uniq
-
-      @chats.each do |chat_id|
-        @uri = URI("https://api.telegram.org/bot#{@token}/sendMessage?chat_id=#{chat_id}&text=#{@message}")
+      Subscription.all.each do |sub|
+        @token = settings.TELEGRAM_API_KEY
+        @uri = URI(normalize_uri("https://api.telegram.org/bot#{@token}/sendMessage?chat_id=#{sub.chat_id}&text=#{@message}"))
         Net::HTTP.get(@uri)
       end
     end

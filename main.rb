@@ -10,6 +10,7 @@ class Naschwerk < Sinatra::Base
 
   register Sinatra::ConfigFile
   config_file 'config.yml'
+  ENV['TZ'] = 'Europe/Berlin'
 
   before do
     @user = User[session[:id]]
@@ -27,3 +28,5 @@ require_relative 'routes/post_routes'
 require_relative 'routes/comment_routes'
 # require_relative 'routes/ngpartials_routes'
 require_relative 'models/init'
+
+require_relative 'notifier\schedule'
