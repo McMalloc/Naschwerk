@@ -1,5 +1,5 @@
 # encoding: UTF-8
-# main script
+# huhu
 require 'sinatra'
 require 'slim/include'
 require 'sinatra/config_file'
