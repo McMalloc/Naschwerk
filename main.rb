@@ -29,4 +29,4 @@ require_relative 'routes/comment_routes'
 # require_relative 'routes/ngpartials_routes'
 require_relative 'models/init'
 
-require_relative 'notifier\schedule'
+require_relative 'notifier/schedule'
