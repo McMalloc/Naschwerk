@@ -1,0 +1,31 @@
+.row.justify-content-center
+  - @posts.each do |post|
+    div.col-xs-12.col-md-6.col-lg-4
+      div.tile
+        h4 = post.title
+        - if post.og_image.nil?
+          a target="_blank" href="#{post.url}" &rarr; #{post.url}
+        - else
+          a target="_blank" href="#{post.url}"
+            img.post-image src="#{post.og_image}" alt="Card image cap"
+        p.lead
+          = post.og_title
+        p
+          = post.og_description
+          br
+          - unless post.og_image.nil?
+            a target="_blank" href="#{post.url}" &rarr;&nbsp;#{post.url}
+        div.d-flex.justify-content-start
+          /a.comment-expander data-id="#{post[:post_id]}" data-toggle="collapse" href="#comments-#{post[:post_id]}" aria-expanded="false" aria-controls="comments-#{post[:post_id]}"
+          /  | Kommentare
+          p.ml-auto.text-muted.text-right
+            = post[:date].strftime('%d. %b %Y')
+            | &nbsp;von&nbsp;
+            = post[:name]
+      /div.collapse id="comments-#{post[:post_id]}"
+      /  div.comments
+      /  form.comment-form.d-flex.justify-content-start
+      /    textarea.form-control.comment-text-area data-id="#{post[:post_id]}" style="width: 60%;" name="content"
+      /    input type="hidden" name="post_id" value="#{post[:post_id]}"
+      /    input.ml-auto.btn.btn-primary disabled="true" type="submit" value="Kommentieren"
+    hr
