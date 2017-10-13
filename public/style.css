@@ -23,7 +23,7 @@ p {
   white-space: pre-wrap;
 }
 
-a {
+.tile a {
   word-break: break-all;
 }
 

@@ -14,14 +14,14 @@ $( document ).ready(function() {
   });
 
 
-  var page = 0;
+  var page = 1;
 
   $(window).scroll(function() {
     if($(window).scrollTop() + $(window).height() === $(document).height()) {
       httpGet("posts/page/" + page, function(data) {
-        page++;
         $("main").append(data);
-      })
+      });
+      page++;
     }
   });
 
@@ -29,6 +29,7 @@ $( document ).ready(function() {
   if (!!$.fn.DataTable) {
     $("table.table").DataTable({
       paging: false,
+      order: [[ 0, "desc" ]],
       columnDefs: [
         { "type": "date", "targets": 0 }
       ]
