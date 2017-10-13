@@ -21,6 +21,7 @@ class Naschwerk < Sinatra::Base
 
   get '/', :auth => :user do
     @posts = Post
+               .limit(12)
                .order(Sequel.desc(:created_at))
                .select_append(:posts__created_at___date)
                .select_append(:posts__id___post_id)

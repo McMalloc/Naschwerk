@@ -11,9 +11,12 @@ html
     script src="/libs/bundle.js"
     script src="/index.js"
 
+    link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"
+
   body
     include navigation
     include posting
 
-    main.container style="margin-top: 40px;"
+    main.container-fluid style="margin-top: 40px;"
       == yield
+      #scroll-loader.loader style=("display: block;" if @action == '/')

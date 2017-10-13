@@ -13,12 +13,12 @@
             | Passwort
           input#pwd.form-control type="password" required="" name="pwd"
 
-      fieldset.form-group
-        label for="email"
-          | E-Mail
-        input#email.form-control type="email" name="email"
-        p.text-muted
-          | E-Mail ist freiwillig und wird für Benachrichtigungen verwendet.
+      /fieldset.form-group
+      /  label for="email"
+      /    | E-Mail
+      /  input#email.form-control type="email" name="email"
+      /  p.text-muted
+      /    | E-Mail ist freiwillig und wird für Benachrichtigungen verwendet.
 
       fieldset.form-group
         label for="human"
@@ -26,5 +26,13 @@
         input#human.form-control type="text" required="" name="human"
         p.text-muted
 
-      div.text-right
+      p.text-right
         input.btn.btn-primary type="submit" value="Registrieren"
+
+      div.alert.alert-info
+        strong Pro-Tip: &nbsp;
+        | Kontaktiere den Telegram-Bot&nbsp;
+        a.font-italic href="https://web.telegram.org/#/im?p=@naschbot" naschbot
+        |, um darüber neue Linkeinsendungen zu erhalten.
+        br
+        | Blockierst du den Bot als Kontakt, erhälst du keine weiteren Updates.

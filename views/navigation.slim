@@ -1,7 +1,8 @@
 nav.navbar.sticky-top.navbar-toggleable-sm.navbar-light.bg-faded
   button.navbar-toggler.navbar-toggler-right aria-controls="navigation" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navigation" data-toggle="collapse" type="button"
     span.navbar-toggler-icon
-  a.navbar-brand href="/"  Naschwerk
+  a.navbar-brand href="/"
+    img src="logo.svg" alt="Naschwerk" style="height: 25px;"
   - unless @user.nil?
     #navigation.collapse.navbar-collapse
       ul.navbar-nav.mr-auto
@@ -9,8 +10,10 @@ nav.navbar.sticky-top.navbar-toggleable-sm.navbar-light.bg-faded
           a.nav-link href="/"
             | Posts
             span.sr-only (current)
+        li.nav-item class=('active' if @action == '/posts/all')
+          a.nav-link href="/posts/all"  Tabelle
         li.nav-item class=('active' if @action == '/dev')
-          a.nav-link href="/dev"  Entwicklung&thinsp;/&thinsp;Feedback
+          a.nav-link target="_blank" href="https://web.telegram.org/#/im?p=@naschbot" @naschbot (Telegram)
       span.nav-item.navbar-text Angemeldet als&nbsp;
       a.nav-item.navbar-text href="users/#{@user.id}" = @user.name
       a.nav-item.navbar-text href="/signout" style="margin-right: 16px;" &nbsp;(abmelden)

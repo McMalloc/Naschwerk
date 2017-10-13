@@ -3,7 +3,7 @@ $( document ).ready(function() {
   var fetched = {};
 
   $("#post-form").submit(function() {
-
+    $("#post-loader").show();
     $("#save-post-btn").prop( "disabled", true );
     $("#cancel-post-btn").prop( "disabled", true );
   });
@@ -13,38 +13,43 @@ $( document ).ready(function() {
     $("#send-feedback-btn").prop( "disabled", true );
   });
 
-  $(".comment-expander").click(function() {
-    var postId = this.dataset.id;
-    if (fetched[postId]) return;
-    fetched[postId] = true;
-    $.get({
-      url: "/comments/" + postId,
-      success: function(res) {
-        $("#comments-" + postId + " .comments").append(res);
-      }
-    })
-  });
 
-  $(".comment-text-area").bind('input propertychange', function() {
-    var postId = this.dataset.id;
-    if (this.value.length>1) {
-      $("#comments-" + postId + " input[type='submit']").prop("disabled", false);
-    } else {
-      $("#comments-" + postId + " input[type='submit']").prop("disabled", true);
+  var page = 0;
+
+  $(window).scroll(function() {
+    if($(window).scrollTop() + $(window).height() === $(document).height()) {
+      httpGet("posts/page/" + page, function(data) {
+        $("main").append(data);
+      })
     }
   });
 
-  $(".comment-form").submit(function(event) {
-    event.preventDefault();
-    $.ajax({
-      url: "/comments",
-      method: "POST",
-      data: $( this ).serialize(),
-      success: function(res) {
-        console.log(res);
-      }
+
+  if (!!$.fn.DataTable) {
+    $("table.table").DataTable({
+      paging: false
     });
+  }
+
+  $('#table-filter').on('keyup click', function () {
+    filterGlobal();
   });
+
+  function filterGlobal () {
+    $('table.table').DataTable().search(
+      $('#table-filter').val(), false, true
+    ).draw();
+  }
+
+  function httpGet(theUrl, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
+  }
 
 });
 

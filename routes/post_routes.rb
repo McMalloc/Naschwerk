@@ -1,12 +1,32 @@
 # encoding: UTF-8
 
 class Naschwerk < Sinatra::Base
-  get '/posts' do
+  get '/posts', :auth => :user do
     Post.all.to_json
+  end
+
+  get '/posts/all', :auth => :user do
+    @posts = Post
+               .order(Sequel.desc(:created_at))
+               .select_append(:posts__created_at___date)
+               .select_append(:posts__id___post_id)
+               .left_join(User.select(:id, :name), :id=>:user_id)
+    slim :table
   end
 
   get '/posts/:id' do
     Post[params['id'].to_i].to_json
+  end
+
+  get '/posts/page/:page' do
+    @posts = Post
+               .limit(12)
+               .offset(params['page'].to_i*12)
+               .order(Sequel.desc(:created_at))
+               .select_append(:posts__created_at___date)
+               .select_append(:posts__id___post_id)
+               .left_join(User.select(:id, :name), :id=>:user_id)
+    slim :index, layout: false
   end
 
   post '/posts' do
