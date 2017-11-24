@@ -1,4 +1,3 @@
-# require 'fastimage_resize'
 require 'net/smtp'
 require 'net/http'
 require 'open-uri'
@@ -15,69 +14,56 @@ class Naschwerk < Sinatra::Base
       URI(URI.encode(uri) << Array(tail).join)
     end
 
-    def broadcast_telegram link, subject
+#     def feedback_mail (content, user)
+#       message = "
+# From: #{user} <naschwerk feedback form>
+# To: Webmaster <naschwerk@sushi-schranke.de>
+# Subject: Naschwerk Feedback\n
+# #{content}"
+#
+#       Net::SMTP.start('suhail.uberspace.de',
+#                       587,
+#                       'naschwerk.sushi-schranke.de',
+#                       'naschwerk@svickova.suhail.uberspace.de', 'naschwerk00', :login) do |smtp|
+#         smtp.enable_starttls_auto
+#         smtp.send_message message,  'naschwerk@svickova.suhail.uberspace.de',
+#                                     ['naschwerk@sushi-schranke.de']
+#       end
+#     end
 
-      @message = "
-      #{subject} \n\r\n\r
-      #{link}\n
-      "
-
-      Subscription.all.each do |sub|
-        @token = settings.TELEGRAM_API_KEY
-        @uri = URI(normalize_uri("https://api.telegram.org/bot#{@token}/sendMessage?chat_id=#{sub.chat_id}&text=#{@message}"))
-        Net::HTTP.get(@uri)
-      end
-    end
-
-    def feedback_mail (content, user)
-      message = "
-From: #{user} <naschwerk feedback form>
-To: Webmaster <naschwerk@sushi-schranke.de>
-Subject: Naschwerk Feedback\n
-#{content}"
-
-      Net::SMTP.start('suhail.uberspace.de',
-                      587,
-                      'naschwerk.sushi-schranke.de',
-                      'naschwerk@svickova.suhail.uberspace.de', 'naschwerk00', :login) do |smtp|
-        smtp.enable_starttls_auto
-        smtp.send_message message,  'naschwerk@svickova.suhail.uberspace.de',
-                                    ['naschwerk@sushi-schranke.de']
-      end
-    end
-
-    def broadcast_mail (link, subject, title)
-      # @link = link
-      # @subject = subject
-      # @title = title
-      # message = slim :email_new_post, layout: false
-      message = "
-From Naschwerk
-To Naschwerkabonnent
-Subject #{subject}
-
-Hi,
-
-#{title}
-#{link}
-
-Gruß"
-      addrs = []
-      User.each do |user|
-        unless user.email.nil? || (user.email.length == 0)
-          addrs.push user.email
-        end
-      end
-      puts addrs
-      Net::SMTP.start('suhail.uberspace.de',
-                      587,
-                      'naschwerk.sushi-schranke.de',
-                      'naschwerk@svickova.suhail.uberspace.de', 'naschwerk00', :login) do |smtp|
-        smtp.enable_starttls_auto
-        smtp.send_message message,  'naschwerk@svickova.suhail.uberspace.de',
-                          addrs
-      end
-    end
+    # def broadcast_mail (link, subject, title)
+    #   # @link = link
+    #   # @subject = subject
+    #   # @title = title
+    #   # message = slim :email_new_post, layout: false
+    #   message = "
+    #       From Naschwerk
+    #       To Naschwerkabonnent
+    #       Subject #{subject}
+    #
+    #       Hi,
+    #
+    #       #{title}
+    #       #{link}
+    #
+    #       Gruß
+    #   "
+    #   addrs = []
+    #   User.each do |user|
+    #     unless user.email.nil? || (user.email.length == 0)
+    #       addrs.push user.email
+    #     end
+    #   end
+    #   puts addrs
+    #   Net::SMTP.start('suhail.uberspace.de',
+    #                   587,
+    #                   'naschwerk.sushi-schranke.de',
+    #                   'naschwerk@svickova.suhail.uberspace.de', 'naschwerk00', :login) do |smtp|
+    #     smtp.enable_starttls_auto
+    #     smtp.send_message message,  'naschwerk@svickova.suhail.uberspace.de',
+    #                       addrs
+    #   end
+    # end
 
     def get_extension imagedata
       if imagedata.encoding.ascii_compatible?
@@ -93,16 +79,16 @@ Gruß"
       end
     end
 
-    def resizeAndSaveImage (imagedata, local_path, local_filename)
-      file = File.new(local_path + local_filename, "w+")
-      file << imagedata
-      file.close
-      # FastImage.resize(
-      #   local_path + local_filename,
-      #   100, 20,
-      #   outfile: local_path + 'thumb_' + local_filename
-      # )
-    end
+    # def resizeAndSaveImage (imagedata, local_path, local_filename)
+    #   file = File.new(local_path + local_filename, "w+")
+    #   file << imagedata
+    #   file.close
+    #   # FastImage.resize(
+    #   #   local_path + local_filename,
+    #   #   100, 20,
+    #   #   outfile: local_path + 'thumb_' + local_filename
+    #   # )
+    # end
   end
 
 end
