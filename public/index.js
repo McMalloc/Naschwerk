@@ -16,10 +16,15 @@ $( document ).ready(function() {
 
   var page = 1;
 
+  var isFetching = false;
   $(window).scroll(function() {
-    if($(window).scrollTop() + $(window).height() === $(document).height()) {
+    if (($(window).scrollTop() + $(window).height() >= $(document).height()-100) && (!isFetching)) {
+      isFetching = true;
+      $("#scroll-loader").show();
       httpGet("posts/page/" + page, function(data) {
         $("main").append(data);
+        $("#scroll-loader").hide();
+        isFetching = false;
       });
       page++;
     }
@@ -51,7 +56,7 @@ $( document ).ready(function() {
     xmlHttp.onreadystatechange = function() {
       if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
         callback(xmlHttp.responseText);
-    }
+    };
     xmlHttp.open("GET", theUrl, true); // true for asynchronous
     xmlHttp.send(null);
   }

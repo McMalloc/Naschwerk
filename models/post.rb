@@ -7,7 +7,9 @@ class Post < Sequel::Model
   end
 
   def after_save
-    app.broadcast_telegram self.url, "#{User[self.user_id].name} postete im Naschwerk: #{self.title}"
+    if self.user_id != app.settings.TELEGRAM_USER_ID
+      app.broadcast_telegram self.url, "#{User[self.user_id].name} postete im Naschwerk: #{self.title}"
+    end
   end
 
   def before_save

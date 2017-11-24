@@ -17,17 +17,14 @@ class Naschwerk < Sinatra::Base
     @user = User[session[:id]]
     @host = request.host + ':9292'
     @action = request.path_info
+    @version = settings.VERSION
   end
 end
 
 require_relative 'routes/app_routes'
-
 require_relative 'helper/helper'
-
 require_relative 'routes/user_routes'
 require_relative 'routes/post_routes'
 require_relative 'routes/comment_routes'
-# require_relative 'routes/ngpartials_routes'
 require_relative 'models/init'
-
-require_relative 'notifier/schedule'
+require_relative 'bot/bot'
