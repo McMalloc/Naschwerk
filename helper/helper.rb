@@ -57,10 +57,10 @@ class Naschwerk < Sinatra::Base
     #   puts addrs
     #   Net::SMTP.start('suhail.uberspace.de',
     #                   587,
-    #                   'naschwerk.sushi-schranke.de',
-    #                   'naschwerk@svickova.suhail.uberspace.de', 'naschwerk00', :login) do |smtp|
+    #                   '',
+    #                   '', '', :login) do |smtp|
     #     smtp.enable_starttls_auto
-    #     smtp.send_message message,  'naschwerk@svickova.suhail.uberspace.de',
+    #     smtp.send_message message,  '',
     #                       addrs
     #   end
     # end
