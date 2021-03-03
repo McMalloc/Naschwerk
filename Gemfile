@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 # Component requirements
 gem 'sass'
-gem 'rack', '~>1.5'
+gem 'rack', '~>1.6'
 gem 'rake'
 gem 'slim'
 gem 'sqlite3'
